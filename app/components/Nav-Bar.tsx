@@ -32,4 +32,3 @@ function BasicExample() {
 }
 
 export default BasicExample;
-sdasdad;
