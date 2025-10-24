@@ -3,7 +3,15 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      {/* Tu NavBar debe ir fuera del <main> si quieres que ocupe todo el ancho 
+          en la parte superior de la página, como es común para un componente Navbar. */}
+
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+        {/*
+          He dejado el contenido original de Next.js aquí para que puedas ver que 
+          la NavBar aparece arriba. Si quieres eliminarlo para centrarte en el 
+          carrito, solo borra todo el contenido dentro de <main> y el <footer>.
+        */}
         <Image
           className="dark:invert"
           src="/next.svg"
