@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-// ¡CLAVE! Asegúrate que la ruta del CSS de Bootstrap esté correcta
 import "bootstrap/dist/css/bootstrap.min.css";
-// Renombramos la importación a NavBar para que coincida con el nombre del componente.
 import NavBar from "./components/Nav-Bar";
+import Footer from "./components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,11 +30,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* Aquí renderizamos la NavBar UNA SOLA VEZ, aplicable a todas las páginas */}
+
         <NavBar />
 
-        {/* {children} es el contenido de app/page.tsx y otras rutas */}
         {children}
+        <Footer />
       </body>
     </html>
   );
