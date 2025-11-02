@@ -38,4 +38,3 @@ export default function Ofertas() {
   );
 }
 
-export default NavBar;
