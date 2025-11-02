@@ -1,11 +1,11 @@
-import CardProduct from "../components/CardProduct";
+import CardProduct from "./CardProduct";
 const categorias = [
-    { titulo: "Donuts palta" },
-    { titulo: "Donuts fresa" },
-    { titulo: "Donuts chocolate" },
-    { titulo: "Donuts vainilla" },
-    { titulo: "Donuts mango" },
-    { titulo: "Donuts banana" }
+    { titulo: "Donut palta" },
+    { titulo: "Donut fresa" },
+    { titulo: "Donut chocolate" },
+    { titulo: "Donut vainilla" },
+    { titulo: "Donut mango" },
+    { titulo: "Donut banana" }
 ];
 
 export default function Donuts({ max }: { max?: number }) {
@@ -17,7 +17,7 @@ export default function Donuts({ max }: { max?: number }) {
                 {mostrar.map((cat, idx) => {
                     const nombre = cat.titulo.toLowerCase().replace(/ /g, "-");
                     return (
-                        <CardProduct key={idx} titulo={cat.titulo} direccion={`/productos/${nombre}`} />
+                        <CardProduct key={idx} titulo={cat.titulo} direccion={`/productos/${nombre}`} accion="ver mas" />
                     );
                 })}
             </div>

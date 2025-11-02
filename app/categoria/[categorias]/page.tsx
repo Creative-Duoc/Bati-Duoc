@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
-import CardProduct from "../../components/CardProduct";
-import Batidos from "../Batidos";
-import Galletas from "../Galletas";
-import Donuts from "../Donuts";
+
+import Batidos from "../../components/Batidos";
+import Galletas from "../../components/Galletas";
+import Donuts from "../../components/Donuts";
 
 // Mapa de componentes
 const componentes: Record<string, React.FC<{ max?: number }>> = {
