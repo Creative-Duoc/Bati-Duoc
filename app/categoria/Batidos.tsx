@@ -2,7 +2,10 @@ import CardProduct from "../components/CardProduct";
 const categorias = [
   { titulo: "Batidos palta" },
   { titulo: "Batidos fresa" },
-  { titulo: "Batidos chocolate" }
+  { titulo: "Batidos chocolate" },
+  { titulo: "Batidos vainilla" },
+  { titulo: "Batidos mango" },
+  { titulo: "Batidos banana" }
 ];
 
 export default function Batidos({ max }: { max?: number }) {
