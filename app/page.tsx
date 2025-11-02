@@ -17,7 +17,7 @@ export default function Home() {
         <h2 className="text-2xl font-bold mb-6 text-center">Categorías</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {categorias.map((cat, idx) => (
-            <CardProduct key={idx} titulo={cat.titulo} />
+            <CardProduct key={idx} titulo={cat.titulo} direccion={`/categoria/${cat.titulo}`} />
           ))}
         </div>
       </div>
