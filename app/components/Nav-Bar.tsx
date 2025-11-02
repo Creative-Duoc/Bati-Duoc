@@ -42,6 +42,7 @@ function NavBar() {
         {/* Enlaces y dropdown */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
+                   {" "}
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
             <NavDropdown
@@ -81,21 +82,32 @@ function NavBar() {
               className="form-control me-2"
               style={{ minWidth: 150 }}
             />
+                       {" "}
             <button type="submit" className="btn btn-outline-success">
               Buscar
             </button>
+                     {" "}
           </form>
-
-          {/* Botón de carrito y botones de sesión a la derecha */}
-          <div className="d-flex gap-2 ms-3 align-items-center">
-            <button className="btn" style={{backgroundColor: '#22c55e', color: 'white', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '6px'}}>
-              Carrito
-            </button>
-            <button className="btn btn-outline-primary">Iniciar Sesión</button>
-            <button className="btn btn-primary">Crear Cuenta</button>
+                    {/* Botones de sesión a la derecha */}         {" "}
+          <div className="d-flex gap-2 ms-3">
+                        {/* Botón Iniciar Sesión (Ruta /inicio-sesion) */}
+            <Link href="/inicio-sesion" passHref legacyBehavior>
+              <button className="btn btn-outline-primary">
+                Iniciar Sesión
+              </button>
+            </Link>
+                        {/* Botón Crear Cuenta (Ruta /crear-cuenta) */}         
+             {" "}
+            <Link href="/crear-cuenta" passHref legacyBehavior>
+              <button className="btn btn-primary">Crear Cuenta</button>
+            </Link>
+                     {" "}
           </div>
+                 {" "}
         </Navbar.Collapse>
+             {" "}
       </Container>
+         {" "}
     </Navbar>
   );
 }
