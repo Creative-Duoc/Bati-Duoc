@@ -1,6 +1,6 @@
-"use client"; // <--- CLAVE
+"use client"; // Necesario para usar hooks como Link
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import Link from "next/link"; // 1. IMPORTAMOS EL COMPONENTE LINK DE NEXT.JS
+import Link from "next/link"; // Importamos el componente Link de Next.js
 
 function NavBar() {
   return (
@@ -71,15 +71,18 @@ function NavBar() {
           </form>
                     {/* Botones de sesión a la derecha */}         {" "}
           <div className="d-flex gap-2 ms-3">
-                       {" "}
-            {/* SOLUCIÓN: Usamos Link sin espacios ni comentarios dentro para evitar que sean contados como hijos adicionales */}
+                        {/* Botón Iniciar Sesión (Ruta /inicio-sesion) */}
             <Link href="/inicio-sesion" passHref legacyBehavior>
               <button className="btn btn-outline-primary">
                 Iniciar Sesión
               </button>
             </Link>
-                       {" "}
-            <button className="btn btn-primary">Crear Cuenta</button>         {" "}
+                        {/* Botón Crear Cuenta (Ruta /crear-cuenta) */}         
+             {" "}
+            <Link href="/crear-cuenta" passHref legacyBehavior>
+              <button className="btn btn-primary">Crear Cuenta</button>
+            </Link>
+                     {" "}
           </div>
                  {" "}
         </Navbar.Collapse>
