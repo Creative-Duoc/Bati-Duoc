@@ -21,9 +21,9 @@ export default function Blog() {
         </div>
         <div className="col-md-6 text-center">
           <img
-            src="/images/imagenes_experiencias/EXPERIENCIA BATIPALTA.png"
-            className="img-fluid rounded border"
+            src="/imagenes/imagenes_experiencias/EXPERIENCIA BATIPALTA.png"
             alt="Caso Batipalta"
+            className="img-fluid rounded border"
           />
         </div>
       </div>
@@ -43,9 +43,9 @@ export default function Blog() {
         </div>
         <div className="col-md-6 text-center">
           <img
-            src="/images/imagenes_experiencias/Experiencia Bati-col.png"
-            className="img-fluid rounded border"
+            src="/imagenes/imagenes_experiencias/Experiencia Bati-col.png"
             alt="Caso Baticol"
+            className="img-fluid rounded border"
           />
         </div>
       </div>
