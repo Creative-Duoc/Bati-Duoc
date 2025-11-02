@@ -1,4 +1,13 @@
 
+
+const categorias = [
+  { titulo: "Batidos" },
+  { titulo: "Galletas" },
+  { titulo: "Donuts" }
+];
+
+import CardProduct from "./components/CardProduct";
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-white flex flex-col items-center px-4 pt-6 pb-10 font-sans">
@@ -13,11 +22,8 @@ export default function Home() {
       <div className="w-full max-w-4xl">
         <h2 className="text-2xl font-bold mb-6 text-center">Categorías</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          {/* Tarjetas de categoría */}
-          {[1,2,3].map((cat) => (
-            <div key={cat} className="bg-gray-100 rounded-lg h-40 flex flex-col items-center justify-center text-gray-400 text-2xl font-semibold">
-              400 x 200
-            </div>
+          {categorias.map((cat, idx) => (
+            <CardProduct key={idx} titulo={cat.titulo} />
           ))}
         </div>
       </div>
