@@ -1,22 +1,26 @@
 import { notFound } from "next/navigation";
 import CardProduct from "../../components/CardProduct";
+import Batidos from "../Batidos";
+import Galletas from "../Galletas";
+import Donuts from "../Donuts";
 
-// Ejemplo de datos de productos
-const productos = [
-  { nombre: "Batidos" },
-  { nombre: "Galletas" },
-  { nombre: "Donuts" },
-  // ...agrega más productos aquí
-];
+// Mapa de componentes
+const componentes: Record<string, React.FC<{ max?: number }>> = {
+  batidos: Batidos,
+  galletas: Galletas,
+  donuts: Donuts,
+};
 
 export default function CategoriaPage({ params }: { params: { categorias: string } }) {
-  const producto = productos.find(p => p.nombre === params.categorias);
-  if (!producto) return notFound();
+  const nombre = params.categorias.toLowerCase();
+  const Componente = componentes[nombre];
+
+  if (!Componente) return notFound();
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center px-4 pt-6 pb-10 font-sans">
-      <h2 className="text-2xl font-bold mb-6 text-center">{producto.nombre}</h2>
-      <div className="max-w-md w-full">
+      <div className="mb-10">
+        <Componente max={6} />
       </div>
     </div>
   );
