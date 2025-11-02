@@ -6,9 +6,16 @@ import { useRouter } from "next/navigation";
 
 function NavBar() {
   const [showCategorias, setShowCategorias] = useState(false);
+  const [hideTimeout, setHideTimeout] = useState<NodeJS.Timeout | null>(null);
   const router = useRouter();
-  const handleMouseEnter = () => setShowCategorias(true);
-  const handleMouseLeave = () => setShowCategorias(false);
+  const handleMouseEnter = () => {
+    if (hideTimeout) clearTimeout(hideTimeout);
+    setShowCategorias(true);
+  };
+  const handleMouseLeave = () => {
+    const timeout = setTimeout(() => setShowCategorias(false), 300); // 300 ms
+    setHideTimeout(timeout);
+  };
   const handleCategoriasClick = () => {
     router.push("../categoria");
   };
@@ -51,9 +58,9 @@ function NavBar() {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <NavDropdown.Item href="/productos/categoria">Categoría 1</NavDropdown.Item>
-              <NavDropdown.Item href="#categoria2">Categoría 2</NavDropdown.Item>
-              <NavDropdown.Item href="#categoria3">Categoría 3</NavDropdown.Item>
+              <NavDropdown.Item href="/categoria/Batidos">Batidos</NavDropdown.Item>
+              <NavDropdown.Item href="/categoria/Donuts">Donuts</NavDropdown.Item>
+              <NavDropdown.Item href="/categoria/Galletas">Galletas</NavDropdown.Item>
             </NavDropdown>
 
             <Link href="/ofertas" className="nav-link">
