@@ -1,4 +1,4 @@
-import CardProduct from "../components/CardProduct";
+import CardProduct from "./CardProduct";
 const categorias = [
     { titulo: "Galleta palta" },
     { titulo: "Galleta fresa" },
@@ -17,7 +17,7 @@ export default function Galletas({ max }: { max?: number }) {
                 {mostrar.map((cat, idx) => {
                     const nombre = cat.titulo.toLowerCase().replace(/ /g, "-");
                     return (
-                        <CardProduct key={idx} titulo={cat.titulo} direccion={`/productos/${nombre}`} />
+                        <CardProduct key={idx} titulo={cat.titulo} direccion={`/productos/${nombre}`} accion="ver mas" imagen={`/imagenes/Imagenes_Batidos/${nombre}.jpg`} />
                     );
                 })}
             </div>

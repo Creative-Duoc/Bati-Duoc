@@ -11,7 +11,7 @@ function UncontrolledExample() {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
-        <img src="/imagenes/Imagenes_Batidos/batidos.jpg" alt="" />
+        <img src="/imagenes/Imagenes_Batidos/images.jpg" alt="" />
         <Carousel.Caption>
           <h3>Second slide label</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
