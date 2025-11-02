@@ -218,7 +218,7 @@ export default function Contacto() {
           </div>
 
           <img
-            src="/imagenes/imagenes_experiencias/Equipo.png"
+            src="/imagenes/imagenes_experiencias/teammanos.png"
             alt="Equipo Bati-Duoc"
             className="img-fluid mt-4 rounded-4 shadow-sm"
             style={{ maxWidth: "80%", border: "3px solid #27AE60" }}

@@ -27,7 +27,7 @@ export default function Nosotros() {
             </div>
             <div className="col-md-6 text-center">
               <img
-                src="/images/imagenes_experiencias/Equipo.png"
+                src="/imagenes/imagenes_experiencias/nuestrahistoria.png"
                 className="img-fluid rounded shadow"
                 alt="Equipo Bati-Duoc"
               />
