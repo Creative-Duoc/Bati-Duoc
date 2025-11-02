@@ -1,11 +1,11 @@
-import CardProduct from "../components/CardProduct";
+import CardProduct from "./CardProduct";
 const categorias = [
-  { titulo: "Batidos palta" },
-  { titulo: "Batidos fresa" },
-  { titulo: "Batidos chocolate" },
-  { titulo: "Batidos vainilla" },
-  { titulo: "Batidos mango" },
-  { titulo: "Batidos banana" }
+  { titulo: "Batido palta" },
+  { titulo: "Batido fresa" },
+  { titulo: "Batido chocolate" },
+  { titulo: "Batido vainilla" },
+  { titulo: "Batido mango" },
+  { titulo: "Batido banana" }
 ];
 
 export default function Batidos({ max }: { max?: number }) {
@@ -18,7 +18,7 @@ export default function Batidos({ max }: { max?: number }) {
           // Generar nombre para la URL
           const nombre = cat.titulo.toLowerCase().replace(/ /g, "-");
           return (
-            <CardProduct key={idx} titulo={cat.titulo} direccion={`/productos/${nombre}`} />
+            <CardProduct key={idx} titulo={cat.titulo} direccion={`/productos/${nombre}`} accion="Ver más" imagen={`/imagenes/Imagenes_Batidos/${nombre}.jpg`} />
           );
         })}
       </div>

@@ -4,9 +4,9 @@ const categorias = [
     { titulo: "Donuts" }
 ];
 import CardProduct from "../components/CardProduct";
-import Batidos from "./Batidos";
-import Galletas from "./Galletas";
-import Donuts from "./Donuts";
+import Batidos from "../components/Batidos";
+import Galletas from "../components/Galletas";
+import Donuts from "../components/Donuts";
 
 export default function Home() {
     return (
@@ -18,7 +18,7 @@ export default function Home() {
                     {categorias.map((cat, idx) => {
                         const nombre = cat.titulo
                         return (
-                            <CardProduct key={idx} titulo={cat.titulo} direccion={`/categoria/${nombre}`} />
+                            <CardProduct key={idx} titulo={cat.titulo} direccion={`/categoria/${nombre}`} imagen={`/imagenes/Imagenes_Categorias/${nombre}.jpg`} accion="Ver mas" />
                         );
                     })}
                 </div>
