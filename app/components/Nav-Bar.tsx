@@ -3,41 +3,47 @@ import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 function NavBar() {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
-      <Container>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+    <Navbar expand="lg" className="bg-body-tertiary py-2">
+      <Container fluid className="d-flex align-items-center justify-content-between">
+        {/* Logo */}
+        <Navbar.Brand href="#home">
+          <div style={{ width: 48, height: 32 }} className="bg-secondary rounded d-flex align-items-center justify-content-center text-light fw-bold">
+            logo
+          </div>
+        </Navbar.Brand>
+
+        {/* Enlaces y dropdown originales */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="#home">Home</Nav.Link>
-            {/* Cambié este Nav.Link para que sea el icono de Carrito de Compras */}
-            <Nav.Link href="#carrito">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="currentColor"
-                className="bi bi-cart-fill inline-block mr-1"
-                viewBox="0 0 16 16"
-                aria-label="Carrito de compras"
-              >
-                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L5.8 10h8.2a.5.5 0 0 1 .491.408l.388 1.498A.5.5 0 0 1 15 13H1.5a.5.5 0 0 1-.5-.5zM14 10H5.539L4.254 5H14z" />
-                <path d="M.5 2.5a.5.5 0 0 1 .5-.5h15a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5z" />
-              </svg>
-              Carrito (0)
-            </Nav.Link>
-
-            <NavDropdown title="Tienda" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">
-                Ver Productos
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Ofertas del Día
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Mi Cuenta</NavDropdown.Item>
+            <NavDropdown title="Categorías" id="categorias-nav-dropdown">
+              <NavDropdown.Item href="#categoria1">Categoría 1</NavDropdown.Item>
+              <NavDropdown.Item href="#categoria2">Categoría 2</NavDropdown.Item>
+              <NavDropdown.Item href="#categoria3">Categoría 3</NavDropdown.Item>
             </NavDropdown>
+            <Nav.Link href="#ofertas">Ofertas</Nav.Link>
+            <Nav.Link href="#nosotros">Nosotros</Nav.Link>
+            <Nav.Link href="#blog">Blog</Nav.Link>
+            <Nav.Link href="#contacto">Contacto</Nav.Link>
           </Nav>
+
+          {/* Buscador centrado */}
+          <form className="d-flex mx-auto" style={{ maxWidth: 400, flex: 1, justifyContent: 'center' }}>
+            <input
+              type="text"
+              placeholder="Buscar"
+              className="form-control me-2"
+              style={{ minWidth: 150 }}
+            />
+            <button type="submit" className="btn btn-outline-success">Buscar</button>
+          </form>
+
+          {/* Botones de sesión a la derecha */}
+          <div className="d-flex gap-2 ms-3">
+            <button className="btn btn-outline-primary">Iniciar Sesión</button>
+            <button className="btn btn-primary">Crear Cuenta</button>
+          </div>
         </Navbar.Collapse>
       </Container>
     </Navbar>
