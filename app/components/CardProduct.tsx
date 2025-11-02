@@ -2,7 +2,7 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-function CardProduct({ titulo, imagen, texto, direccion, accion }: { titulo?: string, imagen?: string, texto?: string, direccion?: string, accion?: string }) {
+function CardProduct({ titulo, imagen, texto, direccion, accion, precio }: { titulo?: string, imagen?: string, texto?: string, direccion?: string, accion?: string, precio?: string }) {
   return (
     <Card style={{ width: '18rem', height: '320px' }}>
       <Card.Img
@@ -16,7 +16,10 @@ function CardProduct({ titulo, imagen, texto, direccion, accion }: { titulo?: st
         }}
       />
       <Card.Body>
-        <Card.Title>{titulo}</Card.Title>
+          <Card.Title>{titulo}</Card.Title>
+          {precio && (
+            <div className="text-green-700 fw-bold mb-2">{precio}</div>
+          )}
         <Card.Text>{texto}</Card.Text>
         <Button variant="primary" href={direccion}>{accion}</Button>
       </Card.Body>

@@ -5,9 +5,10 @@ interface ProductDetailProps {
   descripcion: string;
   precio: string;
   imagen: string;
+  precioAnterior?: string;
 }
 
-const ProductDetail: React.FC<ProductDetailProps> = ({ titulo, descripcion, precio, imagen }) => {
+const ProductDetail: React.FC<ProductDetailProps> = ({ titulo, descripcion, precio, imagen, precioAnterior }) => {
   return (
     <div className="bg-white p-8 rounded-lg shadow-md max-w-5xl mx-auto">
       <div className="flex flex-col md:flex-row gap-8">
@@ -20,7 +21,14 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ titulo, descripcion, prec
         </div>
         <div className="md:w-1/2 flex flex-col justify-center">
           <h1 className="text-3xl font-bold mb-2">{titulo}</h1>
-          <div className="text-2xl font-bold text-green-700 mb-2">{precio}</div>
+          {precioAnterior ? (
+            <div className="text-lg text-gray-500 mb-1">
+              <span className="line-through mr-2">{precioAnterior}</span>
+              <span className="text-2xl font-bold text-green-700">{precio}</span>
+            </div>
+          ) : (
+            <div className="text-2xl font-bold text-green-700 mb-2">{precio}</div>
+          )}
           <hr className="mb-4" />
           <p className="text-lg text-gray-700 mb-6">{descripcion}</p>
           <div className="mb-6">
@@ -32,18 +40,6 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ titulo, descripcion, prec
             </select>
           </div>
           <button className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded transition text-lg">Añadir al carrito</button>
-        </div>
-      </div>
-      {/* Productos relacionados */}
-      <div className="mt-10">
-        <h2 className="text-xl font-semibold mb-4">productos Relacionados</h2>
-        <div className="flex gap-4 overflow-x-auto">
-          {/* Ejemplo de imágenes relacionadas, reemplaza con datos reales si lo deseas */}
-          <img src="/imagenes/Imagenes_Batidos/batido-palta.jpg" alt="Batido Palta" className="w-40 h-32 object-cover rounded border" />
-          <img src="/imagenes/Imagenes_Batidos/batido-fresa.jpg" alt="Batido Fresa" className="w-40 h-32 object-cover rounded border" />
-          <img src="/imagenes/Imagenes_Batidos/batido-mango.jpg" alt="Batido Mango" className="w-40 h-32 object-cover rounded border" />
-          <img src="/imagenes/Imagenes_Batidos/batido-chocolate.jpg" alt="Batido Chocolate" className="w-40 h-32 object-cover rounded border" />
-          <img src="/imagenes/Imagenes_Batidos/batido-vainilla.jpg" alt="Batido Vainilla" className="w-40 h-32 object-cover rounded border" />
         </div>
       </div>
     </div>
