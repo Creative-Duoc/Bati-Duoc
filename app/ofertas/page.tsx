@@ -18,10 +18,11 @@ export default function Ofertas() {
             <div className="col-md-4">
               <div className="card h-100 shadow-sm">
                 <img
-                  src="/images/Imagenes_Batidos/Avocado smoothie.png"
-                  className="card-img-top"
-                  alt="Batipalta"
+                  src="/imagenes/Imagenes_Batidos/Avocado smoothie.png"
+                  alt="Batido de Palta"
+                  className="img-fluid rounded shadow"
                 />
+
                 <div className="card-body text-center">
                   <h5 className="fw-bold">Batipalta</h5>
                   <p className="text-muted small">
@@ -48,7 +49,7 @@ export default function Ofertas() {
             <div className="col-md-4">
               <div className="card h-100 shadow-sm">
                 <img
-                  src="/images/Imagenes_Batidos/Berry smoothie.png"
+                  src="/imagenes/Imagenes_Batidos/Berry smoothie.png"
                   className="card-img-top"
                   alt="BatiBerry"
                 />
@@ -78,7 +79,7 @@ export default function Ofertas() {
             <div className="col-md-4">
               <div className="card h-100 shadow-sm">
                 <img
-                  src="/images/Imagenes_Batidos/Protein smoothie.png"
+                  src="/imagenes/Imagenes_Batidos/Protein smoothie.png"
                   className="card-img-top"
                   alt="BatiProteína"
                 />
