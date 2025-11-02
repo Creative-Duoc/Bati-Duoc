@@ -1,7 +1,18 @@
 "use client"; // <--- ESTA ES LA CLAVE PARA NEXT.JS
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function NavBar() {
+  const [showCategorias, setShowCategorias] = useState(false);
+  const router = useRouter();
+  const handleMouseEnter = () => setShowCategorias(true);
+  const handleMouseLeave = () => setShowCategorias(false);
+  const handleCategoriasClick = () => {
+    router.push("../categoria");
+  };
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary py-2">
       <Container fluid className="d-flex align-items-center justify-content-between">
@@ -16,9 +27,15 @@ function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <NavDropdown title="Categorías" id="categorias-nav-dropdown">
-              <NavDropdown.Item href="#categoria1">Categoría 1</NavDropdown.Item>
+            <Nav.Link href="/">Home</Nav.Link>
+            <NavDropdown
+              title={<span style={{ cursor: "pointer" }} onClick={handleCategoriasClick}>Categorías</span>}
+              id="categorias-nav-dropdown"
+              show={showCategorias}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+            >
+              <NavDropdown.Item href="/productos/categoria">Categoría 1</NavDropdown.Item>
               <NavDropdown.Item href="#categoria2">Categoría 2</NavDropdown.Item>
               <NavDropdown.Item href="#categoria3">Categoría 3</NavDropdown.Item>
             </NavDropdown>
@@ -39,8 +56,11 @@ function NavBar() {
             <button type="submit" className="btn btn-outline-success">Buscar</button>
           </form>
 
-          {/* Botones de sesión a la derecha */}
-          <div className="d-flex gap-2 ms-3">
+          {/* Botón de carrito y botones de sesión a la derecha */}
+          <div className="d-flex gap-2 ms-3 align-items-center">
+            <button className="btn" style={{backgroundColor: '#22c55e', color: 'white', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: '6px'}}>
+              Carrito
+            </button>
             <button className="btn btn-outline-primary">Iniciar Sesión</button>
             <button className="btn btn-primary">Crear Cuenta</button>
           </div>
