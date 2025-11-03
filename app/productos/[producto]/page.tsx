@@ -7,8 +7,8 @@ import { donuts } from "../../data/donuts";
 
 const productos = [...batidos, ...galletas, ...donuts];
 
-// Se ha simplificado la definición de tipos directamente en los argumentos de la función.
-export default function ProductoPage({ params }: { params: { producto: string } }) {
+// Usa el tipo estándar de Next.js para props de páginas dinámicas
+export default async function ProductoPage({ params }: { params: { producto: string } }) {
   const producto = productos.find(p => p.nombre === params.producto);
   if (!producto) return notFound();
 
