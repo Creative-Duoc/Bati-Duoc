@@ -1,3 +1,5 @@
+"use client";
+import React from "react";
 import { notFound } from "next/navigation";
 
 import Batidos from "../../components/Batidos";
@@ -11,8 +13,9 @@ const componentes: Record<string, React.FC<{ max?: number }>> = {
   donuts: Donuts,
 };
 
-export default function CategoriaPage({ params }: { params: { categorias: string } }) {
-  const nombre = params.categorias.toLowerCase();
+export default function CategoriaPage({ params }: { params: Promise<{ categorias: string }> }) {
+  const { categorias } = React.use(params);
+  const nombre = categorias.toLowerCase();
   const Componente = componentes[nombre];
 
   if (!Componente) return notFound();

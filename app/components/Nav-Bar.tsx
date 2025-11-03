@@ -1,10 +1,17 @@
 "use client"; 
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useCarrito } from "./CarritoContext";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useAuth } from "./AuthContext";
 
 function NavBar() {
+  const { items } = useCarrito();
+  const { isAuthenticated, logout, user } = useAuth();
+    const [isMounted, setIsMounted] = useState(false);
+    useEffect(() => { setIsMounted(true); }, []);
+    const total = items.reduce((acc, item) => acc + Number(item.precio.replace(/[^\d]/g, "")) * item.cantidad, 0);
   const [showCategorias, setShowCategorias] = useState(false);
   const [hideTimeout, setHideTimeout] = useState<NodeJS.Timeout | null>(null);
   const router = useRouter();
@@ -94,26 +101,34 @@ function NavBar() {
           </form>
           {/* Icono de carrito y botones de sesión a la derecha */}
           <div className="d-flex gap-2 ms-3 align-items-center">
-            {/* Icono de carrito */}
+            {/* Icono de carrito con total */}
             <Link href="/carrito" passHref legacyBehavior>
-              <button className="btn btn-outline-secondary d-flex align-items-center" title="Carrito">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <circle cx="9" cy="21" r="1" />
-                  <circle cx="20" cy="21" r="1" />
-                  <path d="M1 1h2l.4 2M6 6h15l-1.5 9h-13z" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+              <button className="btn btn-success d-flex align-items-center px-3" title="Carrito" style={{ fontWeight: "bold" }}>
+                Carrito {isMounted && total > 0 ? `$${total.toLocaleString()}` : ""}
               </button>
             </Link>
-            {/* Botón Iniciar Sesión (Ruta /inicio-sesion) */}
-            <Link href="/inicio-sesion" passHref legacyBehavior>
-              <button className="btn btn-outline-primary">
-                Iniciar Sesión
-              </button>
-            </Link>
-            {/* Botón Crear Cuenta (Ruta /crear-cuenta) */}
-            <Link href="/crear-cuenta" passHref legacyBehavior>
-              <button className="btn btn-primary">Crear Cuenta</button>
-            </Link>
+
+            {isMounted && isAuthenticated ? (
+              <>
+                <span className="navbar-text">Hola, {user?.email}</span>
+                <button className="btn btn-outline-danger" onClick={logout}>
+                  Cerrar Sesión
+                </button>
+              </>
+            ) : (
+              <>
+                {/* Botón Iniciar Sesión (Ruta /inicio-sesion) */}
+                <Link href="/inicio-sesion" passHref legacyBehavior>
+                  <button className="btn btn-outline-primary">
+                    Iniciar Sesión
+                  </button>
+                </Link>
+                {/* Botón Crear Cuenta (Ruta /crear-cuenta) */}
+                <Link href="/crear-cuenta" passHref legacyBehavior>
+                  <button className="btn btn-primary">Crear Cuenta</button>
+                </Link>
+              </>
+            )}
           </div>
         </Navbar.Collapse>
       </Container>
