@@ -95,7 +95,7 @@ export default function InicioSesionPage() {
           </div>
 
           <div className="w-100 text-center mt-2">
-            ¿No tienes cuenta? <Link href="#crear-cuenta">Crear Cuenta</Link>
+            ¿No tienes cuenta? <Link href="crear-cuenta">Crear Cuenta</Link>
           </div>
         </Card.Body>
       </Card>

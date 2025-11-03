@@ -12,41 +12,41 @@ export const donuts: Donut[] = [
     titulo: "Donut palta",
     descripcion: "Donut con sabor a palta.",
     precio: "$1.500",
-    imagen: "/imagenes/Imagenes_Donas/dona-palta.jpg"
+    imagen: "/imagenes/imagenes_Donas/dona-palta.jpg",
   },
   {
     nombre: "donut-fresa",
     titulo: "Donut fresa",
     descripcion: "Donut con sabor a fresa.",
     precio: "$1.500",
-    imagen: "/imagenes/Imagenes_Donas/dona-fresa.jpg"
+    imagen: "/imagenes/imagenes_Donas/dona-fresa.jpg",
   },
   {
     nombre: "donut-chocolate",
     titulo: "Donut chocolate",
     descripcion: "Donut con sabor a chocolate.",
     precio: "$1.500",
-    imagen: "/imagenes/Imagenes_Donas/dona-chocolate.jpg"
+    imagen: "/imagenes/imagenes_Donas/dona-chocolate.jpg",
   },
   {
     nombre: "donut-vainilla",
     titulo: "Donut vainilla",
     descripcion: "Donut con sabor a vainilla.",
     precio: "$1.500",
-    imagen: "/imagenes/Imagenes_Donas/dona-vainilla.jpg"
+    imagen: "/imagenes/imagenes_Donas/dona-vainilla.jpg",
   },
   {
     nombre: "donut-mango",
     titulo: "Donut mango",
     descripcion: "Donut con sabor a mango.",
     precio: "$1.500",
-    imagen: "/imagenes/Imagenes_Donas/dona-mango.jpg"
+    imagen: "/imagenes/imagenes_Donas/dona-mango.jpg",
   },
   {
     nombre: "donut-banana",
     titulo: "Donut banana",
     descripcion: "Donut con sabor a banana.",
     precio: "$1.500",
-    imagen: "/imagenes/Imagenes_Donas/dona-banana.jpg"
-  }
+    imagen: "/imagenes/imagenes_Donas/dona-banana.jpg",
+  },
 ];
