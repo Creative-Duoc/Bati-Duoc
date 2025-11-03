@@ -43,7 +43,7 @@ export default function CrearCuentaPage() {
     setValidationErrors({});
     setSubmitMessage("");
 
-    let errors: { [key: string]: string } = {};
+    const errors: { [key: string]: string } = {};
     let isValid = true;
 
     // --- VALIDACIONES DE TU HTML ORIGINAL ADAPTADAS ---
