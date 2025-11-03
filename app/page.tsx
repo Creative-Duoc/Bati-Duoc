@@ -41,7 +41,6 @@ export default function Home() {
               <CardProduct
                 key={idx}
                 titulo={cat.titulo}
-                descripcion={cat.descripcion}
                 direccion={`/categoria/${nombre}`}
                 imagen={cat.imagen}
                 accion="Explorar"
