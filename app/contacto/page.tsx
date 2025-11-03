@@ -2,21 +2,35 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+// Interfaces para tipado estricto
+interface FormData {
+  nombre: string;
+  email: string;
+  asunto: string;
+  mensaje: string;
+}
+
+interface FormErrors {
+  nombre?: string;
+  email?: string;
+  mensaje?: string;
+}
+
 export default function Contacto() {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<FormData>({
     nombre: "",
     email: "",
     asunto: "",
     mensaje: "",
   });
-  const [error, setError] = useState<any>({});
+  const [error, setError] = useState<FormErrors>({});
   const [enviado, setEnviado] = useState(false);
 
   const correoRegex =
     /^[^@\s]{1,}@((duoc\.cl)|(profesor\.duoc\.cl)|(gmail\.com))$/i;
 
-  const validarFormulario = () => {
-    const errores: any = {};
+  const validarFormulario = (): FormErrors => {
+    const errores: FormErrors = {};
     if (!form.nombre.trim())
       errores.nombre = "Por favor, ingresa tu nombre completo.";
     else if (form.nombre.length > 100)
@@ -35,11 +49,13 @@ export default function Contacto() {
     return errores;
   };
 
-  const handleChange = (e: any) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setForm({ ...form, [e.target.id]: e.target.value });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const errores = validarFormulario();
     setError(errores);

@@ -1,5 +1,6 @@
 "use client";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Image from "next/image";
 
 export default function Caso1() {
   return (
@@ -27,11 +28,13 @@ export default function Caso1() {
       <div className="row align-items-center g-4">
         {/* Imagen */}
         <div className="col-md-6 text-center">
-          <img
+          <Image
             src="/imagenes/imagenes_experiencias/EXPERIENCIA BATIPALTA.png"
             alt="Experiencia Batipalta"
+            width={700}
+            height={475}
             className="img-fluid rounded-4 shadow-sm"
-            style={{ border: "3px solid #27AE60", maxWidth: "90%" }}
+            style={{ border: "3px solid #27AE60", maxWidth: "90%", height: "auto" }}
           />
         </div>
 
