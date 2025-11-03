@@ -27,7 +27,7 @@ export default function ProductoPage({ params }: { params: { producto: string } 
         titulo={producto.titulo}
         descripcion={producto.descripcion}
         precio={producto.precio}
-        imagen={`/imagenes/Imagenes_Batidos/${producto.nombre}.jpg`}
+        imagen={producto.imagen}
         precioAnterior={mostrarOferta ? precioAnterior : undefined}
       />
     </div>

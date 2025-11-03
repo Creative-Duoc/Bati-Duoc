@@ -2,43 +2,43 @@
 import { useState } from "react";
 import { Container, Form, Button, Card, Alert } from "react-bootstrap";
 import Link from "next/link";
+import { useAuth } from "../components/AuthContext";
 
 export default function InicioSesionPage() {
+  const { login } = useAuth();
   // 1. Estado para campos del formulario
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   // 2. Estado para mensajes de error y estado de validación
-  const [emailError, setEmailError] = useState("");
   const [loginError, setLoginError] = useState("");
-
-  const DOMAIN = "@duocuc.cl";
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    setEmailError("");
     setLoginError("");
 
-    // *** VALIDACIÓN PRINCIPAL REQUERIDA ***
-    if (!email.includes(DOMAIN)) {
-      setEmailError(
-        `El correo debe ser institucional y contener el dominio "${DOMAIN}".`
-      );
-      return; // Detiene el envío si falla la validación
-    }
-
-    // Validación de campos vacíos simple
+    // 1. Validación de campos vacíos
     if (!email || !password) {
       setLoginError("Por favor, ingresa tu correo y contraseña.");
       return;
     }
 
-    // Si todas las validaciones pasan, se procede con la lógica de inicio de sesión
-    // (Aquí iría la llamada a la API o a Firebase para autenticación)
-    console.log("Intento de inicio de sesión:", { email, password });
-    setLoginError("Inicio de sesión simulado exitoso. Redirigiendo...");
+    // 2. Obtener usuarios de localStorage
+    const storedUsers = JSON.parse(localStorage.getItem("users") || "[]");
 
-    // En un app real, aquí se redirigiría al usuario al dashboard
-    // Ejemplo de redirección: router.push('/dashboard');
+    // 3. Buscar al usuario por email
+    const userFound = storedUsers.find(
+      (user: any) => user.email === email
+    );
+
+    // 4. Validar usuario y contraseña
+    if (userFound && userFound.password === password) {
+      // ¡Éxito! Llamar a la función de login del contexto
+      const { password, ...userToLogin } = userFound;
+      login(userToLogin);
+    } else {
+      // Error: credenciales incorrectas
+      setLoginError("El correo o la contraseña son incorrectos.");
+    }
   };
 
   return (
@@ -69,12 +69,7 @@ export default function InicioSesionPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="ejemplo@duocuc.cl"
-                isInvalid={!!emailError} // Marcar como inválido si hay error
               />
-              {/* Mensaje de error personalizado */}
-              <Form.Control.Feedback type="invalid">
-                {emailError}
-              </Form.Control.Feedback>
             </Form.Group>
 
             {/* Campo Contraseña */}
@@ -100,7 +95,7 @@ export default function InicioSesionPage() {
           </div>
 
           <div className="w-100 text-center mt-2">
-            ¿No tienes cuenta? <Link href="#crear-cuenta">Crear Cuenta</Link>
+            ¿No tienes cuenta? <Link href="crear-cuenta">Crear Cuenta</Link>
           </div>
         </Card.Body>
       </Card>

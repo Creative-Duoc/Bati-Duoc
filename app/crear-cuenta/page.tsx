@@ -67,12 +67,12 @@ export default function CrearCuentaPage() {
       isValid = false;
     }
 
-    // Contraseña (Entre 4 y 10 caracteres)
+    // Contraseña (Mínimo 6 caracteres)
     if (!password) {
       errors.password = "La contraseña es requerida.";
       isValid = false;
-    } else if (password.length < 4 || password.length > 10) {
-      errors.password = "La contraseña debe tener entre 4 y 10 caracteres.";
+    } else if (password.length < 6) {
+      errors.password = "La contraseña debe tener al menos 6 caracteres.";
       isValid = false;
     }
 
@@ -95,11 +95,26 @@ export default function CrearCuentaPage() {
     setValidationErrors(errors);
 
     if (isValid) {
-      // Si todo es válido, simular el registro
-      const userData = { name, email, phone, region, comuna };
-      console.log("Registro exitoso:", userData);
+      // Lógica para guardar el usuario en localStorage
+      const storedUsers = JSON.parse(localStorage.getItem("users") || "[]");
+      
+      // Verificar si el email ya está registrado
+      const userExists = storedUsers.some((user: any) => user.email === email);
+      if (userExists) {
+        setSubmitMessage("Error: El correo electrónico ya está registrado.");
+        return;
+      }
+
+      // Guardar el nuevo usuario con toda la información
+      const nameParts = name.trim().split(' ');
+      const nombre = nameParts.shift() || '';
+      const apellido = nameParts.join(' ');
+      const newUser = { nombre, apellido, email, password, region, comuna };
+      const updatedUsers = [...storedUsers, newUser];
+      localStorage.setItem("users", JSON.stringify(updatedUsers));
+
+      console.log("Registro exitoso:", newUser);
       setSubmitMessage("¡Registro exitoso! Ya puedes iniciar sesión.");
-      // En una app real, aquí se llamaría a la API/Firebase para crear el usuario.
     } else {
       setSubmitMessage("Error: Por favor, revisa los campos marcados.");
     }
@@ -172,6 +187,7 @@ export default function CrearCuentaPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     isInvalid={!!validationErrors.password}
+                    minLength={6}
                     required
                   />
                   <Form.Control.Feedback type="invalid">
