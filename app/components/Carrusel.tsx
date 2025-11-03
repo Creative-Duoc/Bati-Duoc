@@ -1,28 +1,51 @@
 "use client";
-import Carousel from 'react-bootstrap/Carousel';
+import Carousel from "react-bootstrap/Carousel";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 function UncontrolledExample() {
   return (
-    <Carousel>
+    <Carousel fade interval={4000} pause="hover">
+      {/* Slide 1 */}
       <Carousel.Item>
-        <img src="/imagenes/Imagenes_Batidos/batidos.jpg" alt="" />
+        <img
+          src="/imagenes/Imagenes_Batidos/batidos.jpg"
+          alt="Batidos naturales"
+          className="d-block w-100 carousel-img"
+        />
         <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          <h3 className="fw-bold text-shadow">Batidos Naturales</h3>
+          <p className="text-shadow">
+            Frescos, saludables y llenos de energía.
+          </p>
         </Carousel.Caption>
       </Carousel.Item>
+
+      {/* Slide 2 */}
       <Carousel.Item>
-        <img src="/imagenes/Imagenes_Batidos/images.jpg" alt="" />
+        <img
+          src="/imagenes/Imagenes_Batidos/galleta-chocolate.jpg"
+          alt="Galletas artesanales"
+          className="d-block w-100 carousel-img"
+        />
         <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <h3 className="fw-bold text-shadow">Galleta</h3>
+          <p className="text-shadow">
+            Dulces, suaves y con un toque casero irresistible..
+          </p>
         </Carousel.Caption>
       </Carousel.Item>
+
+      {/* Slide 3 */}
       <Carousel.Item>
-        <img src="/imagenes/Imagenes_Batidos/batidos.jpg" alt="" />
+        <img
+          src="/imagenes/imagenes_Donas/dona-banana.jpg"
+          alt="Donuts Banana"
+          className="d-block w-100 carousel-img"
+        />
         <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+          <h3 className="fw-bold text-shadow">Donuts Irresistibles</h3>
+          <p className="text-shadow">
+            Dulzura, suavidad y sabor en cada bocado.
           </p>
         </Carousel.Caption>
       </Carousel.Item>

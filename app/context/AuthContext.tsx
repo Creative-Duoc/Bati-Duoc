@@ -23,10 +23,9 @@ const firebaseConfig = JSON.parse(
 );
 
 // Inicialización de Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
+const app = firebaseApp.initializeApp(firebaseConfig);
+const auth = firebaseAuth.getAuth(app);
+const db = firebaseFirestore.getFirestore(app);
 // Tipo para el Contexto de Autenticación
 interface AuthContextType {
   currentUser: User | null;
