@@ -4,11 +4,14 @@ import { Container, Form, Button, Card, Alert } from "react-bootstrap";
 import Link from "next/link";
 import { useAuth } from "../components/AuthContext";
 
-// Definir una interfaz para el objeto de usuario
+// Definir una interfaz para el objeto de usuario para un tipado estricto
 interface User {
   email: string;
-  password?: string; // La contraseña es opcional aquí porque la eliminamos antes de pasarla al contexto
-  [key: string]: any; // Permite otras propiedades
+  password?: string;
+  nombre: string;
+  apellido: string;
+  region: string;
+  comuna: string;
 }
 
 export default function InicioSesionPage() {
@@ -29,7 +32,7 @@ export default function InicioSesionPage() {
       return;
     }
 
-    // 2. Obtener usuarios de localStorage
+    // 2. Obtener usuarios de localStorage con tipado estricto
     const storedUsers: User[] = JSON.parse(localStorage.getItem("users") || "[]");
 
     // 3. Buscar al usuario por email
