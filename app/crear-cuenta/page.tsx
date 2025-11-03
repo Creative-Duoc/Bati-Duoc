@@ -38,7 +38,7 @@ export default function CrearCuentaPage() {
     "Región de Ñuble",
   ];
 
-  const handleRegister = (e: React.FormEvent) => {
+  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setValidationErrors({});
     setSubmitMessage("");
@@ -99,7 +99,7 @@ export default function CrearCuentaPage() {
       const storedUsers = JSON.parse(localStorage.getItem("users") || "[]");
       
       // Verificar si el email ya está registrado
-      const userExists = storedUsers.some((user: any) => user.email === email);
+      const userExists = storedUsers.some((user: { email: string }) => user.email === email);
       if (userExists) {
         setSubmitMessage("Error: El correo electrónico ya está registrado.");
         return;

@@ -4,6 +4,13 @@ import { Container, Form, Button, Card, Alert } from "react-bootstrap";
 import Link from "next/link";
 import { useAuth } from "../components/AuthContext";
 
+// Definir una interfaz para el objeto de usuario
+interface User {
+  email: string;
+  password?: string; // La contraseña es opcional aquí porque la eliminamos antes de pasarla al contexto
+  [key: string]: any; // Permite otras propiedades
+}
+
 export default function InicioSesionPage() {
   const { login } = useAuth();
   // 1. Estado para campos del formulario
@@ -12,7 +19,7 @@ export default function InicioSesionPage() {
   // 2. Estado para mensajes de error y estado de validación
   const [loginError, setLoginError] = useState("");
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoginError("");
 
@@ -23,11 +30,11 @@ export default function InicioSesionPage() {
     }
 
     // 2. Obtener usuarios de localStorage
-    const storedUsers = JSON.parse(localStorage.getItem("users") || "[]");
+    const storedUsers: User[] = JSON.parse(localStorage.getItem("users") || "[]");
 
     // 3. Buscar al usuario por email
     const userFound = storedUsers.find(
-      (user: any) => user.email === email
+      (user: User) => user.email === email
     );
 
     // 4. Validar usuario y contraseña

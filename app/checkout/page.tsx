@@ -1,6 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
-import { Container, Row, Col, Card, Form, Button, ListGroup, Alert } from "react-bootstrap";
+import { useEffect } from "react";
+import { Container, Row, Col, Card, Form, Button, ListGroup } from "react-bootstrap";
 import { useAuth } from "../components/AuthContext";
 import { useCarrito } from "../components/CarritoContext";
 import { useRouter } from "next/navigation";
