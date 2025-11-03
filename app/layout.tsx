@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from "./components/Nav-Bar";
+import { AuthContextProvider } from "./context/AuthContext"; // <-- 1. Importar el proveedor
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,8 +30,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NavBar />
-        {children}
+        {/* 2. Envolver toda la aplicación con AuthContextProvider */}
+        <AuthContextProvider>
+          <NavBar />
+          {children}
+        </AuthContextProvider>
       </body>
     </html>
   );

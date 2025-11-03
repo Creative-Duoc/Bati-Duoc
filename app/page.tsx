@@ -1,9 +1,7 @@
-
-
 const categorias = [
   { titulo: "Batidos" },
   { titulo: "Galletas" },
-  { titulo: "Donuts" }
+  { titulo: "Donuts" },
 ];
 import Carrusel from "./components/Carrusel";
 import CardProduct from "./components/CardProduct";
@@ -19,7 +17,13 @@ export default function Home() {
           {categorias.map((cat, idx) => {
             const nombre = cat.titulo.toLowerCase().replace(/ /g, "-");
             return (
-              <CardProduct key={idx} titulo={cat.titulo} direccion={`/categoria/${nombre}`} imagen={`/imagenes/Imagenes_Categorias/${nombre}.jpg`} accion="Ver mas" />
+              <CardProduct
+                key={idx}
+                titulo={cat.titulo}
+                direccion={`/categoria/${nombre}`}
+                imagen={`/imagenes/Imagenes_Categorias/${nombre}.jpg`}
+                accion="Ver mas"
+              />
             );
           })}
         </div>
