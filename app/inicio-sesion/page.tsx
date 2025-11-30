@@ -26,7 +26,7 @@ export default function InicioSesionPage() {
 
       // 'await': Esperamos a que el servidor responda antes de continuar.
       // 'fetch': Hacemos la petición HTTP al endpoint de login.
-      const response = await fetch("http://localhost:8080/clients/login", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/clients/login`, {
         
         // 'method: POST': Usamos POST porque estamos enviando credenciales (email y password) para ser verificadas.
         // Aunque no creamos un recurso nuevo, POST es más seguro que GET para enviar contraseñas.

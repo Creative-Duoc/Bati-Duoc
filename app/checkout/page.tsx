@@ -60,7 +60,7 @@ export default function CheckoutPage() {
         // ------------------------------------------------------------------------------------------------
         
         // 'fetch': Enviamos la orden al endpoint '/clients/orders' que creamos en el controlador Java.
-        const response = await fetch("http://localhost:8080/clients/orders", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/clients/orders`, {
           method: "POST", // POST para crear un nuevo registro
           headers: { "Content-Type": "application/json" }, // Indicamos que enviamos JSON
           body: JSON.stringify(orderData) // Convertimos el objeto JS a texto JSON

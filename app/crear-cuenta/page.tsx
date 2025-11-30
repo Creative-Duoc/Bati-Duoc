@@ -117,7 +117,7 @@ export default function CrearCuentaPage() {
         
         // 'await': Pausa la ejecución hasta que el servidor responda. Es necesario porque la red toma tiempo.
         // 'fetch': Función nativa de JS para hacer peticiones HTTP a un servidor.
-        const response = await fetch("http://localhost:8080/clients", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/clients`, {
           
           // 'method: POST': Indica que queremos ENVIAR datos para crear un nuevo recurso (usuario) en la BD.
           method: "POST",
