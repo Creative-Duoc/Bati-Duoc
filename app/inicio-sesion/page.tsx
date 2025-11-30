@@ -4,50 +4,76 @@ import { Container, Form, Button, Card, Alert } from "react-bootstrap";
 import Link from "next/link";
 import { useAuth } from "../components/AuthContext";
 
-// Definir una interfaz para el objeto de usuario para un tipado estricto
-interface User {
-  email: string;
-  password?: string;
-  nombre: string;
-  apellido: string;
-  region: string;
-  comuna: string;
-}
-
 export default function InicioSesionPage() {
   const { login } = useAuth();
-  // 1. Estado para campos del formulario
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // 2. Estado para mensajes de error y estado de validación
   const [loginError, setLoginError] = useState("");
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoginError("");
 
-    // 1. Validación de campos vacíos
     if (!email || !password) {
       setLoginError("Por favor, ingresa tu correo y contraseña.");
       return;
     }
 
-    // 2. Obtener usuarios de localStorage con tipado estricto
-    const storedUsers: User[] = JSON.parse(localStorage.getItem("users") || "[]");
+    try {
+      // ------------------------------------------------------------------------------------------------
+      // INICIO DE LA COMUNICACIÓN CON LA BASE DE DATOS (BACKEND)
+      // ------------------------------------------------------------------------------------------------
 
-    // 3. Buscar al usuario por email
-    const userFound = storedUsers.find(
-      (user: User) => user.email === email
-    );
+      // 'await': Esperamos a que el servidor responda antes de continuar.
+      // 'fetch': Hacemos la petición HTTP al endpoint de login.
+      const response = await fetch("http://localhost:8080/clients/login", {
+        
+        // 'method: POST': Usamos POST porque estamos enviando credenciales (email y password) para ser verificadas.
+        // Aunque no creamos un recurso nuevo, POST es más seguro que GET para enviar contraseñas.
+        method: "POST",
+        
+        // 'headers': Indicamos que el cuerpo del mensaje es JSON.
+        headers: {
+          "Content-Type": "application/json",
+        },
+        
+        // 'body': Convertimos el objeto { email, password } a texto JSON para enviarlo por la red.
+        body: JSON.stringify({ email, password }),
+      });
 
-    // 4. Validar usuario y contraseña
-    if (userFound && userFound.password === password) {
-      // ¡Éxito! Llamar a la función de login del contexto
-      const { password, ...userToLogin } = userFound;
-      login(userToLogin);
-    } else {
-      // Error: credenciales incorrectas
-      setLoginError("El correo o la contraseña son incorrectos.");
+      // 'response.ok': Verificamos si el servidor aceptó la petición (status 200 OK).
+      if (response.ok) {
+        // 'response.text()': Leemos la respuesta cruda como texto.
+        // Usamos text() en lugar de json() primero para verificar si viene vacía.
+        const text = await response.text();
+        
+        // Si el texto está vacío, significa que el backend no encontró al usuario o la contraseña estaba mal
+        // (dependiendo de cómo esté programado tu backend, a veces devuelve 200 OK pero body vacío si falla).
+        if (!text) {
+           setLoginError("El correo o la contraseña son incorrectos.");
+           return;
+        }
+
+        // 'JSON.parse(text)': Convertimos el texto JSON recibido de la BD a un objeto JavaScript utilizable.
+        // Este objeto 'userFound' contiene todos los datos de la tabla (id, nombre, email, etc.).
+        const userFound = JSON.parse(text);
+        
+        // Eliminamos la contraseña antes de guardar en el contexto por seguridad.
+        // 'const { password: _, ...userToLogin }': Desestructuración para separar 'password' del resto.
+        const { password: _, ...userToLogin } = userFound;
+        
+        // Guardamos el usuario (que vino de la BD) en el estado global de la aplicación.
+        login(userToLogin);
+      } else {
+        // Si el servidor responde con error (ej: 401 Unauthorized, 500 Server Error).
+        setLoginError("El correo o la contraseña son incorrectos.");
+      }
+      // ------------------------------------------------------------------------------------------------
+      // FIN DE LA COMUNICACIÓN CON LA BASE DE DATOS
+      // ------------------------------------------------------------------------------------------------
+    } catch (error) {
+      console.error("Error de conexión:", error);
+      setLoginError("Error de conexión con el servidor. Asegúrate de que el backend esté corriendo.");
     }
   };
 

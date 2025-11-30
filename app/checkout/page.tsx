@@ -21,28 +21,65 @@ export default function CheckoutPage() {
   // Calcular el total
   const total = items.reduce((acc, item) => acc + Number(item.precio.replace(/[^\d]/g, "")) * item.cantidad, 0);
 
-  const handlePayment = (e: React.FormEvent) => {
+  const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    const orderData = {
-      user,
-      items,
-      total,
-      orderId: `BATI-${Date.now().toString().slice(-6)}`
-    };
-
-    sessionStorage.setItem('lastOrder', JSON.stringify(orderData));
-
-    // Simular pago con probabilidad de fallo
-    const isSuccess = Math.random() > 0.5; // 50% de éxito, 50% de fallo
+    // Simular pago con probabilidad de fallo (esto lo mantenemos como simulación de pasarela)
+    const isSuccess = Math.random() > 0.50; // 50% de éxito para probar
 
     if (isSuccess) {
-      // Limpiar el carrito después de un pago exitoso
-      clearCart();
-      // Redirigir a la página de pago exitoso
-      router.push("/pago-exitoso");
+      try {
+        // ------------------------------------------------------------------------------------------------
+        // PREPARACIÓN DE DATOS PARA LA BASE DE DATOS
+        // ------------------------------------------------------------------------------------------------
+        
+        // Creamos el objeto 'orderData' que coincide EXACTAMENTE con la estructura que espera Java (DTOPedido).
+        const orderData = {
+          // 'idUsuario': Obtenido del contexto de autenticación (user.id).
+          // Es fundamental para saber QUIÉN hizo la compra en la tabla 'pedidos'.
+          idUsuario: user!.id,
+          
+          // 'direccionEnvio': Concatenamos Región, Comuna y Calle para guardar una dirección completa en un solo campo de texto.
+          // Usamos 'document.getElementById' para obtener el valor del input de calle que no está en un estado de React.
+          direccionEnvio: `${user!.region}, ${user!.comuna}, ${(document.getElementById('formCalle') as HTMLInputElement).value}`,
+          
+          // 'total': El monto total calculado previamente con reduce().
+          total: total,
+          
+          // 'detalles': Transformamos el array de items del carrito al formato que espera Java (DTODetallePedido).
+          // Java espera una lista de objetos con: nombreProducto, precio y cantidad.
+          detalles: items.map(item => ({
+            nombreProducto: item.nombre, // Nombre del producto
+            precio: Number(item.precio.replace(/[^\d]/g, "")), // Precio limpio (sin signos $)
+            cantidad: item.cantidad // Cantidad comprada
+          }))
+        };
+
+        // ------------------------------------------------------------------------------------------------
+        // ENVÍO A LA BASE DE DATOS (BACKEND)
+        // ------------------------------------------------------------------------------------------------
+        
+        // 'fetch': Enviamos la orden al endpoint '/clients/orders' que creamos en el controlador Java.
+        const response = await fetch("http://localhost:8080/clients/orders", {
+          method: "POST", // POST para crear un nuevo registro
+          headers: { "Content-Type": "application/json" }, // Indicamos que enviamos JSON
+          body: JSON.stringify(orderData) // Convertimos el objeto JS a texto JSON
+        });
+
+        // Si el backend guardó todo correctamente (status 200 OK)
+        if (response.ok) {
+          clearCart(); // Vaciamos el carrito visualmente
+          router.push("/pago-exitoso"); // Redirigimos al éxito
+        } else {
+          console.error("Error al guardar pedido");
+          router.push("/pago-fallido"); // Si falló el guardado en BD, mostramos error
+        }
+      } catch (error) {
+        console.error("Error de conexión", error);
+        router.push("/pago-fallido"); // Si falló la conexión (servidor apagado), mostramos error
+      }
     } else {
-      // Redirigir a la página de pago fallido
+      // Si la simulación de pago (Math.random) falló (simulando tarjeta rechazada)
       router.push("/pago-fallido");
     }
   };

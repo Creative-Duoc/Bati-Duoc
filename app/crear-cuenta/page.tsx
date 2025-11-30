@@ -38,7 +38,7 @@ export default function CrearCuentaPage() {
     "Región de Ñuble",
   ];
 
-  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setValidationErrors({});
     setSubmitMessage("");
@@ -95,26 +95,73 @@ export default function CrearCuentaPage() {
     setValidationErrors(errors);
 
     if (isValid) {
-      // Lógica para guardar el usuario en localStorage
-      const storedUsers = JSON.parse(localStorage.getItem("users") || "[]");
-      
-      // Verificar si el email ya está registrado
-      const userExists = storedUsers.some((user: { email: string }) => user.email === email);
-      if (userExists) {
-        setSubmitMessage("Error: El correo electrónico ya está registrado.");
-        return;
-      }
-
-      // Guardar el nuevo usuario con toda la información
+      // Preparar datos para el backend
       const nameParts = name.trim().split(' ');
       const nombre = nameParts.shift() || '';
       const apellido = nameParts.join(' ');
-      const newUser = { nombre, apellido, email, password, region, comuna };
-      const updatedUsers = [...storedUsers, newUser];
-      localStorage.setItem("users", JSON.stringify(updatedUsers));
+      
+      const newUser = { 
+        nombre, 
+        apellido, 
+        email, 
+        password, 
+        region, 
+        comuna,
+        telefono: phone 
+      };
 
-      console.log("Registro exitoso:", newUser);
-      setSubmitMessage("¡Registro exitoso! Ya puedes iniciar sesión.");
+      try {
+        // ------------------------------------------------------------------------------------------------
+        // INICIO DE LA COMUNICACIÓN CON LA BASE DE DATOS (BACKEND)
+        // ------------------------------------------------------------------------------------------------
+        
+        // 'await': Pausa la ejecución hasta que el servidor responda. Es necesario porque la red toma tiempo.
+        // 'fetch': Función nativa de JS para hacer peticiones HTTP a un servidor.
+        const response = await fetch("http://localhost:8080/clients", {
+          
+          // 'method: POST': Indica que queremos ENVIAR datos para crear un nuevo recurso (usuario) en la BD.
+          method: "POST",
+          
+          // 'headers': Metadatos de la petición.
+          // 'Content-Type': 'application/json' le dice al servidor Java que le estamos enviando datos en formato JSON.
+          headers: {
+            "Content-Type": "application/json",
+          },
+          
+          // 'body': El cuerpo del mensaje, aquí van los datos reales.
+          // 'JSON.stringify(newUser)': Convierte el objeto JavaScript 'newUser' a un texto en formato JSON que Java puede entender.
+          body: JSON.stringify(newUser),
+        });
+
+        // 'response.ok': Es true si el servidor respondió con un código 200-299 (Éxito).
+        // Es false si hubo error (ej: 400 Bad Request, 500 Server Error).
+        if (response.ok) {
+          console.log("Registro exitoso:", newUser);
+          setSubmitMessage("¡Registro exitoso! Ya puedes iniciar sesión.");
+          // Limpiar formulario si se desea
+          setName("");
+          setEmail("");
+          setPassword("");
+          setConfirmPassword("");
+          setPhone("");
+          setRegion("");
+          setComuna("");
+        } else {
+          // Si response.ok es false, intentamos leer el mensaje de error que envió el servidor.
+          try {
+             // 'response.json()': Convierte la respuesta del servidor (texto JSON) de vuelta a un objeto JS.
+             const errorData = await response.json();
+             console.error("Error del servidor:", errorData);
+          } catch {}
+          setSubmitMessage("Error: No se pudo registrar el usuario. Verifique que el correo no esté duplicado.");
+        }
+        // ------------------------------------------------------------------------------------------------
+        // FIN DE LA COMUNICACIÓN CON LA BASE DE DATOS
+        // ------------------------------------------------------------------------------------------------
+      } catch (error) {
+        console.error("Error de conexión:", error);
+        setSubmitMessage("Error: No se pudo conectar con el servidor.");
+      }
     } else {
       setSubmitMessage("Error: Por favor, revisa los campos marcados.");
     }
